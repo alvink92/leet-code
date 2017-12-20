@@ -138,3 +138,46 @@ let median = function (nums) {
 var findMedianSortedArrays = function (nums1, nums2) {
     return median(merge(nums1, nums2));
 };
+
+// 5. Longest Palindromic Substring
+
+// Given a string s, find the longest palindromic substring in s.You may assume that the maximum length of s is 1000.
+
+// Example:
+
+//     Input: "babad"
+
+// Output: "bab"
+
+// Note: "aba"
+// is also a valid answer.
+// Example:
+
+//     Input: "cbbd"
+
+// Output: "bb"
+
+let isPalindrome = s => {
+    for (let i = 0; i < parseInt(s.length / 2); i++) {
+        if (s[i] !== s[s.length - 1 - i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+var longestPalindrome = function (s) {
+    let longestPalindrome = "";
+    for (let i = 0; i < s.length; i++) {
+        for (let j = i; j < s.length; j++) {
+            let ss = s.slice(i, j + 1);
+            if (isPalindrome(ss)) {
+                if (ss.length >= longestPalindrome.length) {
+                    longestPalindrome = ss;
+                }
+            }
+        }
+    }
+
+    return longestPalindrome;
+};
