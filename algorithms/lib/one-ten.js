@@ -87,33 +87,6 @@ var addTwoNumbers = function (l1, l2) {
  * @param {string} s
  * @return {number}
  */
-// let isUnique = (s) => {
-//     let cache = {};
-//     for (let i = 0; i < s.length; i++) {
-//         if (cache[s[i]]) {
-//             return false;
-//         }
-//         cache[s[i]] = true;
-//     }
-//     return true;
-// }
-
-// var lengthOfLongestSubstring = function (s) {
-//     let longestSubStr = 0;
-//     let leftPtr = 0;
-
-//     for (let rightPtr = 0; rightPtr < s.length; rightPtr++) {
-//         while (!isUnique(s.slice(leftPtr, rightPtr + 1))) {
-//             leftPtr++;
-//         }
-
-//         if ((1 + rightPtr - leftPtr) > longestSubStr) {
-//             longestSubStr = 1 + rightPtr - leftPtr;
-//         }
-//     }
-
-//     return longestSubStr;
-// };
 
 var lengthOfLongestSubstring = function (s) {
     let longestSSLength = 0;
@@ -121,7 +94,7 @@ var lengthOfLongestSubstring = function (s) {
     let leftPtr = 0;
 
     for (let rightPtr = 0; rightPtr < s.length; rightPtr++) {
-        if (typeof cache[s[rightPtr]] !== 'undefined') {
+        if (typeof cache[s[rightPtr]] !== 'undefined' && cache[s[rightPtr]] >= leftPtr) {
             leftPtr = cache[s[rightPtr]] + 1;
         }
         cache[s[rightPtr]] = rightPtr;
