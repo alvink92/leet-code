@@ -40,7 +40,7 @@ let decNum = (listNode) => {
 }
 
 let nextNode = (listNode) => {
-    return listNode ? listNode.next : listNode;
+    return listNode ? listNode.next : undefined;
 }
 
 var addTwoNumbers = function (l1, l2) {
@@ -62,36 +62,39 @@ var addTwoNumbers = function (l1, l2) {
         l2 = nextNode(l2);
     }
 
-    prevDecPlace.val += currCarryOver;
+    if (currCarryOver > 0) {
+        prevDecPlace.next = new ListNode(currCarryOver);
+    };
 
     return onesPlace;
 };
 
-// let decNum = function (l, decimalIndex) {
-//     return typeof l[decimalIndex] === 'undefined' ? 0 : l[decimalIndex];
-// }
+// 4. Median of Two Sorted Arrays
 
-// var addTwoArrOfNumbers = function (l1, l2) {
-//     const sum = [];
+// There are two sorted arrays nums1 and nums2 of size m and n respectively.
+// Find the median of the two sorted arrays.The overall run time complexity should be O(log(m + n)).
 
-//     let currIdx = 0;
-//     let currDecSum;
-//     let prevCarryOver = 0;
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
 
-//     while (l1[currIdx] || l2[currIdx]) {
-//         currDecSum = prevCarryOver + decNum(l1, currIdx) + decNum(l2, currIdx);
-//         sum.push(currDecSum % 10);
-//         prevCarryOver = parseInt(currDecSum / 10);
-//         currIdx += 1;
-//     }
+let merge = function (nums1, nums2) {
+    const mergedNums = [];
 
-//     if (prevCarryOver !== 0) {
-//         sum.push(prevCarryOver);
-//     }
+    while (nums1.length > 0 && nums2.length > 0) {
+        let targetArr = nums1[0] < nums2[0] ? nums1 : nums2;
+        mergedNums.push(targetArr.shift());
+    }
 
-//     return sum;
-// };
+    return Array.prototype.concat(mergedNums, nums1, nums2);
+}
 
-// console.log(addTwoArrOfNumbers([2, 4, 3], [5, 6, 4]));
-// console.log(addTwoArrOfNumbers([2, 4, 9, 3, 2], [5, 6, 4]));
+let median = function (nums) {
+    return (nums[parseInt(Math.floor((nums.length - 1) / 2))] + nums[parseInt(Math.ceil((nums.length - 1) / 2))]) / 2;
+}
 
+var findMedianSortedArrays = function (nums1, nums2) {
+    return median(merge(nums1, nums2));
+};
