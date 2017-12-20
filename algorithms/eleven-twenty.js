@@ -72,3 +72,68 @@ var threeSum = function(nums) {
   }
   return sums;
 };
+
+
+
+// 16. 3Sum Closest
+
+// Given an array S of n integers, find three integers in S such that the sum is closest to a given number, target. Return the sum of the three integers. You may assume that each input would have exactly one solution.
+
+//     For example, given array S = {-1 2 1 -4}, and target = 1.
+
+//     The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
+
+// possible solution: sort arr, then iterate loop 1, then for second loop do closing window
+
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var threeSumClosest = function(nums, target) {
+    
+};
+
+
+// 17. Letter Combinations of a Phone Number
+
+// Given a digit string, return all possible letter combinations that the number could represent.
+
+// A mapping of digit to letters (just like on the telephone buttons) is given below.
+
+
+
+// Input:Digit string "23"
+// Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+
+/**
+ * @param {string} digits
+ * @return {string[]}
+ */
+var letterCombinations = function(digits) {
+    if (digits.length === 0) {
+        return [];
+    }
+    
+    let digitToChars = { 2: "abc".split(""), 3: "def".split(""),
+                        4: "ghi".split(""), 5: "jkl".split(""), 6: "mno".split(""), 
+                        7: "pqrs".split(""), 8: "tuv".split(""), 9: "wxyz".split("")};
+
+    let currCombos = [""];
+
+    for(let i = 0; i < digits.length; i++) {
+        let updatedCombos = [];
+        let appendChars = digitToChars[digits[i]];
+
+        for (let j = 0; j < currCombos.length; j++) {
+            for (let k = 0; k < appendChars.length; k++) {
+                updatedCombos.push(currCombos[j] + appendChars[k]);
+            }
+        }
+
+        currCombos = updatedCombos;
+    }
+
+    return currCombos;
+};
