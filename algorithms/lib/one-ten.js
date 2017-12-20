@@ -157,27 +157,31 @@ var findMedianSortedArrays = function (nums1, nums2) {
 
 // Output: "bb"
 
-let isPalindrome = s => {
-    for (let i = 0; i < parseInt(s.length / 2); i++) {
-        if (s[i] !== s[s.length - 1 - i]) {
-            return false;
+let indicesOfLargestPalindromeFromCenter = (s, leftIdx, rightIdx) => {
+    while (leftIdx > 0 && rightIdx < s.length) {
+        if (s[leftIdx - 1] === s[rightIdx + 1]) {
+            leftIdx--;
+            rightIdx++;
+        } else {
+            return [leftIdx, rightIdx];
         }
     }
-    return true;
-}
+    return [leftIdx, rightIdx];
+};
 
 var longestPalindrome = function (s) {
-    let longestPalindrome = "";
+    let longestPalindromeIndices = [0, 0];
     for (let i = 0; i < s.length; i++) {
-        for (let j = i; j < s.length; j++) {
-            let ss = s.slice(i, j + 1);
-            if (isPalindrome(ss)) {
-                if (ss.length >= longestPalindrome.length) {
-                    longestPalindrome = ss;
-                }
-            }
+        let singleMiddleIndices = indicesOfLargestPalindromeFromCenter(s, i, i);
+        longestPalindromeIndices = (longestPalindromeIndices[1] - longestPalindromeIndices[0]) > (singleMiddleIndices[1] - singleMiddleIndices[0]) ? longestPalindromeIndices : singleMiddleIndices;
+
+        if (s[i] === s[i + 1]) {
+            let doubleMiddleIndices = indicesOfLargestPalindromeFromCenter(s, i, i + 1);
+            longestPalindromeIndices = (longestPalindromeIndices[1] - longestPalindromeIndices[0]) > (doubleMiddleIndices[1] - doubleMiddleIndices[0]) ? longestPalindromeIndices : doubleMiddleIndices;
         }
     }
 
-    return longestPalindrome;
+    return s.slice(longestPalindromeIndices[0], longestPalindromeIndices[1] + 1);
 };
+
+// solution: iterate through string, along the way, check for palindrome starting with current index as center, expanding out and checking center + i and center - i
