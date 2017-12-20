@@ -88,6 +88,8 @@ var addTwoNumbers = function (l1, l2) {
  * @return {number}
  */
 
+// solution: sliding window with a cache to change left pointer if repeats, ignoring indices < left pointer
+
 var lengthOfLongestSubstring = function (s) {
     let longestSSLength = 0;
     let cache = {};
@@ -119,6 +121,8 @@ var lengthOfLongestSubstring = function (s) {
  * @param {number[]} nums2
  * @return {number}
  */
+
+// solution: merge arrays in n + m time, then find median
 
 let merge = function (nums1, nums2) {
     const mergedNums = [];
@@ -157,6 +161,8 @@ var findMedianSortedArrays = function (nums1, nums2) {
 
 // Output: "bb"
 
+// solution: iterate through string, along the way, check for palindrome starting with current index as center, expanding out and checking center + i and center - i
+
 let indicesOfLargestPalindromeFromCenter = (s, leftIdx, rightIdx) => {
     while (leftIdx > 0 && rightIdx < s.length) {
         if (s[leftIdx - 1] === s[rightIdx + 1]) {
@@ -184,4 +190,31 @@ var longestPalindrome = function (s) {
     return s.slice(longestPalindromeIndices[0], longestPalindromeIndices[1] + 1);
 };
 
-// solution: iterate through string, along the way, check for palindrome starting with current index as center, expanding out and checking center + i and center - i
+
+// 10. Regular Expression Matching
+
+// Implement regular expression matching with support
+// for '.'
+// and '*'.
+
+// '.'
+// Matches any single character.
+// '*'
+// Matches zero or more of the preceding element.
+
+// The matching should cover the entire input string(not partial).
+
+// The
+// function prototype should be:
+//     bool isMatch(const char * s,
+//         const char * p)
+
+// Some examples:
+//     isMatch("aa", "a")→ false
+// isMatch("aa", "aa")→ true
+// isMatch("aaa", "aa")→ false
+// isMatch("aa", "a*")→ true
+// isMatch("aa", ".*")→ true
+// isMatch("ab", ".*")→ true
+// isMatch("aab", "c*a*b")→ true
+
