@@ -206,3 +206,41 @@ var removeNthFromEnd = function(head, n) {
     slowPtr.next = slowPtr.next.next;
     return head;
 };
+
+
+
+// 20. Valid Parentheses
+
+// Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+// The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+
+var isValid = function(s) {
+    const closingParens = {"{" : false, "}": true, "[": false, "]": true, "(": false, ")": true};
+    const closeToOpenParensMap = {"}": "{", "]": "[", ")": "("};
+    
+    let stack = [];
+    
+    for(let i = 0; i < s.length; i++) {
+        if (!closingParens[s[i]]) {
+            stack.push(s[i]);
+        } else {
+            if (stack.length === 0) {
+                return false;
+            }
+            if (stack.pop() !== closeToOpenParensMap[s[i]]) {
+                return false;
+            }
+        }
+    }
+    
+    return  stack.length === 0;
+};
+
+
