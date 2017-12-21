@@ -61,3 +61,37 @@ var trap = function(heights) {
     
     return area;
 };
+
+
+// 46. Permutations
+
+// Given a collection of distinct numbers, return all possible permutations.
+
+// For example,
+// [1,2,3] have the following permutations:
+// [
+//   [1,2,3],
+//   [1,3,2],
+//   [2,1,3],
+//   [2,3,1],
+//   [3,1,2],
+//   [3,2,1]
+// ]
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permute = function(nums) {
+    if(nums.length <= 1) {
+        return [nums];
+    }
+    let perms = [];
+    
+    for(let i = 0; i < nums.length; i++) {
+        let subPerms = permute(Array.prototype.concat(nums.slice(0, i), nums.slice(i + 1)));
+        perms = Array.prototype.concat(perms, subPerms.map(subPerm => Array.prototype.concat(subPerm, nums[i])));
+    }
+    
+    return perms;
+};
