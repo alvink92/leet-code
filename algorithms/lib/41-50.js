@@ -11,6 +11,11 @@
  * @return {number}
  */
 
+/**
+ * @param {number[]} heights
+ * @return {number}
+ */
+
 let calcSubArea = function(heights, start, end) {
     console.log(heights, start,end);
     let minHt = Math.min(heights[start], heights[end]);
@@ -18,22 +23,40 @@ let calcSubArea = function(heights, start, end) {
     for(let i = start + 1; i < end; i++) {
         subArea += minHt > heights[i] ? minHt - heights[i] : 0;
     }
-    
+    console.log(subArea);
     return subArea;
 };
 
 var trap = function(heights) {
     let area = 0;
+    let startBarrier;
+    let endBarrier;
     
-    for(let startIdx = 0; startIdx < heights.length - 1; startIdx++) {
-        if (heights[startIdx] <= 1) continue;
-        
-        for(let endIdx = startIdx + 1; endIdx < heights.length; endIdx++) {
-            if (some logic here....) {
-                area += calcSubArea(heights, startIdx, endIdx);
-                startIdx = endIdx;
+    for(let i = 0; i < heights.length - 1; i++) {
+        startBarrier = i;
+        if(heights[i] > heights[i + 1]) {
+            break;
+        }
+    }
+    
+    for(let i = heights.length - 1; i > 0; i--) {
+        endBarrier = i;
+        if(heights[i] > heights[i - 1]) {
+            break;
+        }
+    }
+    
+    while(startBarrier <= endBarrier) {
+
+        let maxSeenIdx = startBarrier + 1;
+        for(let endIdx = startBarrier + 1; endIdx <= endBarrier; endIdx++) {
+            maxSeenIdx = heights[endIdx] > heights[maxSeenIdx] ? endIdx : maxSeenIdx;
+            if (heights[endIdx] > heights[startBarrier] ) {
+                break;
             }
         }
+        area += calcSubArea(heights,startBarrier,maxSeenIdx);
+        startBarrier = maxSeenIdx;
     }
     
     return area;
