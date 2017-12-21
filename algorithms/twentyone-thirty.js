@@ -76,24 +76,29 @@ var mergeTwoLists = function(l1, l2) {
  * @return {ListNode}
  */
 
-let swap = function(currNode, nextNode) {
-    let currNodeVal = currNode.val;
-    currNode.val = nextNode.val;
-    nextNode.val = currNodeVal;
-}
-
 var swapPairs = function(head) {
-    let currNode = head;
-    let isPair = true;
-    
-    while (currNode) {
-        let nextNode = currNode.next;
-        if (!nextNode ){ break;};
-        if(isPair) {
-            swap(currNode,nextNode);
-        }
-        isPair = !isPair;
-        currNode = currNode.next;
+  let prevNode;
+  let currNode = head;
+  let isPair = true;
+
+  while (currNode) {
+    let nextNode = currNode.next;
+    if (!nextNode) {
+      break;
     }
-    return head;
+    if (isPair) {
+      if (prevNode) {
+        prevNode.next = nextNode;
+      } else {
+        head = nextNode;
+      }
+      currNode.next = nextNode.next;
+      nextNode.next = currNode;
+      currNode = nextNode;
+    }
+    isPair = !isPair;
+    prevNode = currNode;
+    currNode = currNode.next;
+  }
+  return head;
 };
