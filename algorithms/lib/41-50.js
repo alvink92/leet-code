@@ -95,3 +95,38 @@ var permute = function(nums) {
     
     return perms;
 };
+
+
+// 47. Permutations II
+
+// Given a collection of numbers that might contain duplicates, return all possible unique permutations.
+
+// For example,
+// [1,1,2] have the following unique permutations:
+// [
+//   [1,1,2],
+//   [1,2,1],
+//   [2,1,1]
+// ]
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permuteUnique = function(nums) {
+    if(nums.length <= 1) {
+        return [nums];
+    }
+    
+    let perms = [];
+    let used = {};
+    
+    for(let i = 0; i < nums.length; i++) {
+        if (used[nums[i]]) continue;
+        used[nums[i]] = true;
+        let subPerms = permuteUnique(Array.prototype.concat(nums.slice(0, i), nums.slice(i + 1)));
+        perms = Array.prototype.concat(perms, subPerms.map(subPerm => Array.prototype.concat(subPerm, nums[i])));
+    }
+    
+    return perms;
+};
