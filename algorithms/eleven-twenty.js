@@ -137,3 +137,72 @@ var letterCombinations = function(digits) {
 
     return currCombos;
 };
+
+
+// 18. 4Sum
+
+// Given an array S of n integers, are there elements a, b, c, and d in S such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of target.
+
+// Note: The solution set must not contain duplicate quadruplets.
+
+// For example, given array S = [1, 0, -1, 0, -2, 2], and target = 0.
+
+// A solution set is:
+// [
+//   [-1,  0, 0, 1],
+//   [-2, -1, 1, 2],
+//   [-2,  0, 0, 2]
+// ]
+
+
+
+// 19. Remove Nth Node From End of List
+
+// Given a linked list, remove the nth node from the end of list and return its head.
+
+// For example,
+
+//    Given linked list: 1->2->3->4->5, and n = 2.
+
+//    After removing the second node from the end, the linked list becomes 1->2->3->5.
+
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+
+var removeNthFromEnd = function(head, n) {
+    if (head.next === null && n === 1) {
+        return null;
+    }
+    
+    let slowPtr = head;
+    let fastPtr = head;
+    for (let i = 0; i < n; i++) {
+        fastPtr = fastPtr.next;
+    }
+    
+    if (fastPtr) {
+        fastPtr = fastPtr.next;
+    } else {
+        // edge case where remove node is the head node
+        return slowPtr.next;
+    }
+    
+    while (fastPtr) {
+        slowPtr = slowPtr.next;
+        fastPtr = fastPtr.next;
+    }
+    
+    slowPtr.next = slowPtr.next.next;
+    return head;
+};
