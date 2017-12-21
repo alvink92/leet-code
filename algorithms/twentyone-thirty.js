@@ -64,3 +64,36 @@ var mergeTwoLists = function(l1, l2) {
 
 // Your algorithm should use only constant space. You may not modify the values in the list, only nodes itself can be changed.
 
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+
+let swap = function(currNode, nextNode) {
+    let currNodeVal = currNode.val;
+    currNode.val = nextNode.val;
+    nextNode.val = currNodeVal;
+}
+
+var swapPairs = function(head) {
+    let currNode = head;
+    let isPair = true;
+    
+    while (currNode) {
+        let nextNode = currNode.next;
+        if (!nextNode ){ break;};
+        if(isPair) {
+            swap(currNode,nextNode);
+        }
+        isPair = !isPair;
+        currNode = currNode.next;
+    }
+    return head;
+};
