@@ -130,3 +130,38 @@ var permuteUnique = function(nums) {
     
     return perms;
 };
+
+
+// 49. Group Anagrams
+
+// Given an array of strings, group anagrams together.
+
+// For example, given: ["eat", "tea", "tan", "ate", "nat", "bat"], 
+// Return:
+
+// [
+//   ["ate", "eat","tea"],
+//   ["nat","tan"],
+//   ["bat"]
+// ]
+// Note: All inputs will be in lower-case.
+
+
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+var groupAnagrams = function(strs) {
+    let store = {};
+    
+    for(let i = 0; i < strs.length; i++) {
+        let key = strs[i].split("").sort().join("");
+        if (!store[key]) {
+            store[key] = [];
+        }
+        
+        store[key].push(strs[i]);
+    }
+    
+    return Object.values(store);
+};
