@@ -40,7 +40,45 @@ var nextPermutation = function(nums) {
  * @return {number}
  */
 var search = function(nums, target) {
-    
+    function binarySearch(arr, target) {
+      let lo = 0;
+      let hi = arr.length - 1;
+
+      while (lo <= hi) {
+        let mid = (lo + hi) >> 1;
+
+        if (arr[mid] > target) {
+          hi = mid - 1;
+        } else if (arr[mid] < target) {
+          lo = mid + 1;
+        } else {
+          return mid;
+        }
+      }
+
+      return arr[hi] === target ? hi : -1;
+    }
+};
+
+
+let findPivot = function(nums) {
+  if (nums[nums.length - 1] > nums[0]) {
+    return 0;
+  }
+
+  let target = nums[0];
+  let leftPtr = 0;
+  let rightPtr = nums.length - 1;
+
+  while (rightPtr - leftPtr > 1) {
+    let mid = parseInt((rightPtr - leftPtr) / 2) + leftPtr;
+    if (nums[mid] > target) {
+      leftPtr = mid;
+    } else {
+      rightPtr = mid;
+    }
+  }
+  return rightPtr;
 };
 
 
@@ -119,3 +157,33 @@ var searchInsert = function(nums, target) {
     }
     return nums.length;
 };
+
+
+// 39. Combination Sum
+
+// Given a set of candidate numbers (C) (without duplicates) and a target number (T), find all unique combinations in C where the candidate numbers sums to T.
+
+// The same repeated number may be chosen from C unlimited number of times.
+
+// Note:
+// All numbers (including target) will be positive integers.
+// The solution set must not contain duplicate combinations.
+// For example, given candidate set [2, 3, 6, 7] and target 7, 
+// A solution set is: 
+// [
+//   [7],
+//   [2, 2, 3]
+// ]
+
+// possible approach: bfs, like better change
+
+/**
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+var combinationSum = function(candidates, target) {
+    
+};
+
+
