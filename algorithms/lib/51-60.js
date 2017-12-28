@@ -47,8 +47,46 @@ var spiralOrder = function (matrix) {
 };
 
 
+// 55. Jump Game
+
+// Given an array of non - negative integers, you are initially positioned at the first index of the array.
+
+// Each element in the array represents your maximum jump length at that position.
+
+// Determine
+// if you are able to reach the last index.
+
+// For example:
+//     A = [2, 3, 1, 1, 4],
+//     return true.
+
+// A = [3, 2, 1, 0, 4],
+//     return false.
 
 
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canJump = function (nums) {
+    currIdx = 0;
+
+    while (currIdx < nums.length && nums[currIdx] !== 0) {
+        let jumpDist = nums[currIdx];
+        let bestJumpIdx = currIdx + 1;
+
+        for (let i = currIdx + 1; i <= currIdx + jumpDist; i++) {
+            if (i + nums[i] >= bestJumpIdx + nums[bestJumpIdx]) {
+                bestJumpIdx = i;
+            }
+        }
+
+        currIdx = bestJumpIdx;
+    }
+
+    console.log(currIdx);
+    return currIdx >= nums.length - 1;
+};
 
 
 
