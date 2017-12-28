@@ -12,75 +12,35 @@
 
 
 /**
- * @param {number[]} nums
- * @return {number}
- */
-var maxSubArray = function(nums) {
-    let maxSum = nums[0];
-    let currSum = 0;
-    
-    for(let i = 0; i < nums.length; i++) {
-        currSum += nums[i];
-        maxSum = Math.max(currSum, maxSum);
-        if (currSum < 0 ) {
-            currSum = 0;
-        }
-    }
-    
-    return maxSum;
-};
-
-
-// 54. Spiral Matrix
-
-// Given a matrix of m x n elements(m rows, n columns),
-//     return all elements of the matrix in spiral order.
-
-// For example,
-// Given the following matrix:
-
-//     [
-//         [1, 2, 3],
-//         [4, 5, 6],
-//         [7, 8, 9]
-//     ]
-// You should
-// return [1, 2, 3, 6, 9, 8, 7, 4, 5].
-
-/**
  * @param {number[][]} matrix
  * @return {number[]}
  */
-let nextPos = function(dir, pos) {
-    return [pos[0] + dir[0], pos[1], dir[1]];
-}
-
-let matrixPosVal = function (matrix, pos) {
-    if (matrix[pos[0]] === undefined || matrix[pos[0]][pos[1]] === undefined) return false;
-    return matrix[pos[0]][pos[1]];
+let getNextPos = function (dir, pos) {
+    return [pos[0] + dir[0], pos[1] + dir[1]];
 }
 
 var spiralOrder = function (matrix) {
-    const dir = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+    const dir = [
+        [0, 1],
+        [1, 0],
+        [0, -1],
+        [-1, 0]
+    ];
     const seen = {};
     const spiral = [];
 
     let currDir = 0;
-    let currPos = [0,0];
+    let nextPos = [0, 0];
 
-    while (true) {
-        let currVal = matrixPosVal(matrix, currPos);
-        if (currVal === false || seen[currPos.toString()]) break;
+    while (!seen[nextPos.toString()] && ((matrix[nextPos[0]] !== undefined && matrix[nextPos[0]][nextPos[1]] !== undefined))) {
+        spiral.push(matrix[nextPos[0]][nextPos[1]]);
+        seen[nextPos.toString()] = true;
 
-        seen[currPos.toString()] = true;
-
-        spiral.push(currVal);
-
-        let nextVal = matrixPosVal(matrix, nextPos(currDir, currPos));
-        if (nextVal === false || seen[nextPos(currDir, currPos).toString()]) {
+        let tempNextPos = getNextPos(dir[currDir], nextPos);
+        if (matrix[tempNextPos[0]] === undefined || matrix[tempNextPos[0]][tempNextPos[1]] === undefined || seen[tempNextPos.toString()]) {
             currDir = (currDir + 1) % 4;
         }
-        currPos = nextPos(currDir, currPos);
+        nextPos = getNextPos(dir[currDir], nextPos);
     }
 
     return spiral;
