@@ -89,8 +89,48 @@ var canJump = function (nums) {
 };
 
 
+// 56. Merge Intervals
 
+// Given a collection of intervals, merge all overlapping intervals.
 
+// For example,
+// Given[1, 3], [2, 6], [8, 10], [15, 18],
+//     return [1, 6], [8, 10], [15, 18].
+
+/**
+ * Definition for an interval.
+ * function Interval(start, end) {
+ *     this.start = start;
+ *     this.end = end;
+ * }
+ */
+/**
+ * @param {Interval[]} intervals
+ * @return {Interval[]}
+ */
+var merge = function (intervals) {
+    merged = [];
+    if (intervals.length === 0) return merged;
+
+    let min = intervals[0].start;
+    let max = intervals[0].end;
+
+    for (let i = 1, len = intervals.length; i < len; i++) {
+        let interval = intervals[i];
+
+        if (interval.start > max) {
+            merged.push([min, max]);
+            min = interval.start;
+            max = interval.end;
+        } else {
+            max = interval.end;
+        }
+    }
+
+    merged.push([min, max]);
+
+    return merged;
+};
 
 
 
