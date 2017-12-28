@@ -51,9 +51,39 @@ var maxSubArray = function(nums) {
  * @param {number[][]} matrix
  * @return {number[]}
  */
+let nextPos = function(dir, pos) {
+    return [pos[0] + dir[0], pos[1], dir[1]];
+}
+
+let matrixPosVal = function (matrix, pos) {
+    if (matrix[pos[0]] === undefined || matrix[pos[0]][pos[1]] === undefined) return false;
+    return matrix[pos[0]][pos[1]];
+}
+
 var spiralOrder = function (matrix) {
     const dir = [[0, 1], [1, 0], [0, -1], [-1, 0]];
-    
+    const seen = {};
+    const spiral = [];
+
+    let currDir = 0;
+    let currPos = [0,0];
+
+    while (true) {
+        let currVal = matrixPosVal(matrix, currPos);
+        if (currVal === false || seen[currPos.toString()]) break;
+
+        seen[currPos.toString()] = true;
+
+        spiral.push(currVal);
+
+        let nextVal = matrixPosVal(matrix, nextPos(currDir, currPos));
+        if (nextVal === false || seen[nextPos(currDir, currPos).toString()]) {
+            currDir = (currDir + 1) % 4;
+        }
+        currPos = nextPos(currDir, currPos);
+    }
+
+    return spiral;
 };
 
 
