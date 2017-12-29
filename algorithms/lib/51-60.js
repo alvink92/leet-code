@@ -167,7 +167,17 @@ var merge = function (intervals) {
  * @return {Interval[]}
  */
 var insert = function (intervals, newInterval) {
+    let mergedIntervals = [];
 
+    currInterval = intervals[0];
+
+    for (let i = 1, len = intervals.length; i < len; i++) {
+        // if newInterval mergable with currInterval, then merge, currInt = mergedInt
+
+        // if intervals[i] can merge with currInterval, then merge, currentInterval = mergedInterval
+        // else push currInterval to mergedIntervals, currInterval = intervals[i]
+
+    }
 };
 
 
