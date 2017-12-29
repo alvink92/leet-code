@@ -118,12 +118,19 @@ var merge = function (intervals) {
     for (let i = 1, len = intervals.length; i < len; i++) {
         let interval = intervals[i];
 
-        if (interval.start > max) {
+        if (interval.start < min && interval.end > max) {
+            min = interval.start;
+            max = interval.end;
+        } else if (interval.start < min) {
+            min = interval.start;
+        } else if (interval.start > max) {
             merged.push([min, max]);
             min = interval.start;
             max = interval.end;
-        } else {
+        } else if (interval.end > max) {
             max = interval.end;
+        } else {
+            console.log("uncaught");
         }
     }
 
