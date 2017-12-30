@@ -198,42 +198,38 @@ var insert = function (intervals, newInterval) {
 // Output: 5
 
 /**
- * @param {string} s
- * @return {number}
- */
-var lengthOfLastWord = function (s) {
-    s = s.trim();
-    let length = 0;
-
-    for (let i = 0; i < s.length; i++) {
-        if (s[i] === " ") {
-            length = 0;
-        } else {
-            length++;
-        }
-    }
-    return length;
-};
-
-
-// 59. Spiral Matrix II
-
-// Given an integer n, generate a square matrix filled with elements from 1 to n2 in spiral order.
-
-// For example,
-// Given n = 3,
-
-//     You should
-// return the following matrix: [
-//     [1, 2, 3],
-//     [8, 9, 4],
-//     [7, 6, 5]
-// ]
-
-/**
  * @param {number} n
  * @return {number[][]}
  */
+
+let getNextPos = function (pos, dir) {
+    return [pos[0] + dir[0], pos[1] + dir[1]];
+}
+
 var generateMatrix = function (n) {
-    let matrix = Array(n).fill().map(() => Array(n).fill());
+    if (n === 0) return [];
+    const matrix = Array(n).fill().map(() => Array(n).fill());
+    // const seen = {};
+    const dirs = [
+        [0, 1],
+        [1, 0],
+        [0, -1],
+        [-1, 0]
+    ];
+
+    currDir = 0;
+    nextPos = [0, 0];
+
+    for (let i = 1; i <= n * n; i++) {
+        matrix[nextPos[0]][nextPos[1]] = i;
+
+        let checkNextPos = getNextPos(nextPos, dirs[currDir]);
+        if (Math.max(...checkNextPos) >= n || Math.min(...checkNextPos) < 0 || matrix[checkNextPos[0]][checkNextPos[1]] !== undefined) {
+            currDir = (currDir + 1) % 4;
+        }
+
+        nextPos = getNextPos(nextPos, dirs[currDir]);
+    }
+
+    return matrix;
 };
