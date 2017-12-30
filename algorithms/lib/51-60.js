@@ -235,5 +235,5 @@ var lengthOfLastWord = function (s) {
  * @return {number[][]}
  */
 var generateMatrix = function (n) {
-    let matrix = Array(n).fill().map(() => Array(n).fill())
+    let matrix = Array(n).fill().map(() => Array(n).fill());
 };
