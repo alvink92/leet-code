@@ -21,6 +21,30 @@
  * @param {number} k
  * @return {ListNode}
  */
-var rotateRight = function(head, k) {
+
+let moveForward = function(head, node, distance) {
+    for(let i = 0; i < distance; i++) {
+        if (node.next) node = node.next;
+        else node = head;
+    }
     
+    return node;
+}
+
+var rotateRight = function(head, k) {
+    if (!head) return null;
+    
+    let slow = head;
+    let fast = moveForward(head, head, k);
+    
+    while(fast.next !== null) {
+        slow = moveForward(head, slow, 1);
+        fast = fast.next;
+    }
+    
+    fast.next = head;
+    head = slow.next;
+    slow.next = null;
+    
+    return head;
 };
