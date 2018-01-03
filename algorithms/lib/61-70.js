@@ -116,5 +116,17 @@ var uniquePaths = function(m, n) {
  * @return {number}
  */
 var uniquePathsWithObstacles = function(obstacleGrid) {
+    let pathsCache = {};
     
+    let uniquePaths = function(m=0, n=0) {
+        if (obstacleGrid.length - 1 === m && obstacleGrid[0].length - 1 === n) return obstacleGrid[m][n] ? 0 : 1;
+        if (obstacleGrid[m][n] === 1) return 0;
+        
+        let uniqueMPaths = m + 1 < obstacleGrid.length ? uniquePaths(m + 1, n) : 0;
+        let uniqueNPaths = n + 1 < obstacleGrid[0].length ? uniquePaths(m, n + 1) : 0;
+        
+        return uniqueMPaths + uniqueNPaths;
+    }
+    
+    return uniquePaths();
 };
