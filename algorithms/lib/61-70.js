@@ -228,8 +228,8 @@ let justifyText = function(words, maxWidth) {
     let origLen = words.length;
     words = words.split(" ");
     
-    if(words.length === 1) {
-        return words[0] + " ".repeat(maxWidth - words[0].length);
-    }
-    return words.join(" ");
+    if(words.length === 1) return words[0] + " ".repeat(maxWidth - words[0].length);
+    
+    let baseNumSpaceJoin = Math.floor((maxWidth - origLen) / (words.length - 1)) + 1;
+    return words.join(" ".repeat(baseNumSpaceJoin));
 }
