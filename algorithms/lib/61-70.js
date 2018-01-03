@@ -301,5 +301,16 @@ var mySqrt = function(x) {
  * @return {number}
  */
 var climbStairs = function(n) {
+    let stepRanges = [1,2];
+    let cache = {1: 1, 2: 2};
     
+    for(let m = stepRanges.length + 1; m <= n; m++) {
+        for(let i = 0; i < stepRanges.length; i++) {
+            let step = stepRanges[i];
+            if (cache[m] === undefined) cache[m] = cache[m - step];
+            else cache[m] = cache[m] + cache[m - step];
+        }
+    }
+    
+    return cache[n];
 };
