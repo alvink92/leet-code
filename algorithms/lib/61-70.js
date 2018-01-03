@@ -152,11 +152,19 @@ var uniquePathsWithObstacles = function(obstacleGrid) {
  * @return {number}
  */
 var minPathSum = function(grid) {
-    let cache = {};
+    let minSum;
     
-    let calc = function(m = 0, n = 0) {
+    let calc = function(sum = 0, m = 0, n = 0) {
+        sum += grid[m][n];
+        if (m === grid.length - 1 && n === grid[0].length - 1) {
+            minSum = minSum === undefined ? sum : Math.min(minSum, sum);
+            return;
+        }
         
+        if (m + 1 < grid.length) calc(sum, m + 1, n);
+        if (n + 1 < grid[0].length) calc(sum, m, n + 1);
     }
     
-    return calc();
+    calc();
+    return minSum;
 };
