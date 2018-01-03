@@ -68,13 +68,24 @@ var rotateRight = function(head, k) {
  * @param {number} n
  * @return {number}
  */
+
+const pathsCache = {};
+
 var uniquePaths = function(m, n) {
     if(m === 1 && n === 1) {
         return 1;
     }
     
-    let uniqueMPaths = m > 1 ? uniquePaths(m - 1, n) : 0;
-    let uniqueNPaths = n > 1 ? uniquePaths(m, n - 1) : 0;
+    let uniqueMPaths;
+    let uniqueNPaths;
+    
+    if (m <= 1) pathsCache[[m - 1, n].toString()] = 0;
+    if(pathsCache[[m - 1, n].toString()] === undefined) pathsCache[[m - 1, n].toString()] = uniquePaths(m - 1, n);
+    uniqueMPaths = pathsCache[[m - 1, n].toString()];
+                                                                 
+    if (n <= 1) pathsCache[[m, n - 1].toString()] = 0;
+    if(pathsCache[[m, n - 1].toString()] === undefined) pathsCache[[m, n - 1].toString()] = uniquePaths(m, n - 1);
+    uniqueNPaths = pathsCache[[m, n - 1].toString()];
     
     return uniqueMPaths + uniqueNPaths;
 };
