@@ -198,7 +198,6 @@ var minPathSum = function(grid) {
 // A line other than the last line might contain only one word. What should you do in this case?
 // In this case, that line should be left-justified.
 
-
 /**
  * @param {string[]} words
  * @param {number} maxWidth
@@ -231,7 +230,7 @@ let justifyText = function(words, maxWidth) {
     if(words.length === 1) return words[0] + " ".repeat(maxWidth - words[0].length);
     
     let baseSpaces = Math.floor((maxWidth - origLen) / (words.length - 1)) + 1;
-    for(let i = 0; i < maxWidth - (origLen + (baseSpaces * (words.length - 1))); i++) {
+    for(let i = 0; i < maxWidth - (origLen + ((baseSpaces - 1) * (words.length - 1))); i++) {
         words[i] += " ";
     }
     return words.join(" ".repeat(baseSpaces));
