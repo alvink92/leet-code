@@ -219,7 +219,7 @@ var fullJustify = function(words, maxWidth) {
         }
     }
     
-    justText.push(justifyText(currText, maxWidth));
+    justText.push(currText + " ".repeat(maxWidth - currText.length));
     
     return justText;
 };
@@ -230,6 +230,9 @@ let justifyText = function(words, maxWidth) {
     
     if(words.length === 1) return words[0] + " ".repeat(maxWidth - words[0].length);
     
-    let baseNumSpaceJoin = Math.floor((maxWidth - origLen) / (words.length - 1)) + 1;
-    return words.join(" ".repeat(baseNumSpaceJoin));
+    let baseSpaces = Math.floor((maxWidth - origLen) / (words.length - 1)) + 1;
+    for(let i = 0; i < maxWidth - (origLen + (baseSpaces * (words.length - 1))); i++) {
+        words[i] += " ";
+    }
+    return words.join(" ".repeat(baseSpaces));
 }
