@@ -81,6 +81,21 @@ var setZeroes = function(matrix) {
  * @param {number} target
  * @return {boolean}
  */
-var searchMatrix = function(matrix, target) {
+
+let bsearch = function(arr, target) {
+    let low = 0;
+    let high = arr.length - 1;
     
+    while(low <= high) {
+        let mid = parseInt((low + high) / 2);
+        
+        if(arr[mid] === target) return mid;
+        else if (arr[mid] > target) high = mid - 1;
+        else low = mid + 1;
+    }
+    
+    return -1;
+}
+
+var searchMatrix = function(matrix, target) {
 };
